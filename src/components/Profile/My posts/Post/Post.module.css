@@ -1,0 +1,12 @@
+.post {
+    margin: 10px;
+display: flex;
+}
+.post img{
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+}
+.likes{
+    margin: 20px;
+}

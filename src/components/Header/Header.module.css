@@ -1,0 +1,9 @@
+.header {
+    grid-area: h ;
+    background-color: black;
+    border: 2px solid black ;
+
+    font-size: 32px;
+    text-align: left;
+    color: gold;
+}
