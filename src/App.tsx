@@ -6,6 +6,7 @@ import Profile from "./components/Profile/Profile";
 import {Route, Routes} from "react-router-dom";
 import {AppRootStateType} from "./redux/redux-store";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import {UsersContainer} from "./components/Users/UsersContainer";
 
 export type AppType = {
     store: AppRootStateType
@@ -23,6 +24,7 @@ function App(props: AppType) {
                     <Route path="/profile" element={<Profile />}/>
 
                     <Route path="/dialogs" element={<DialogsContainer />}/>
+                    <Route path="/users" element={<UsersContainer />}/>
 
                         </Routes>
                         </div>

@@ -50,7 +50,7 @@ export const dialogsReducer = (state: MessagePageType = initialState, action: Di
             return {
                 ...state,
                 newMessageBody: '',
-                messageData: [...state.messageData, {id: 4, message: body}]
+                messageData: [...state.messageData, {id: 5, message: body}]
             }
 
         }
