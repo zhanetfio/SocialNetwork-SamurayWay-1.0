@@ -13,17 +13,20 @@ export type SetUsersAT = {
 export type ActionsType = FollowAT | UnFollowAT | SetUsersAT
 
 export type UserType = {
-    id: number
-    photoUrl:string
+    name: string,
+    id: number,
+    uniqueUrlName: string | null,
+    photos: {
+        small: string | null,
+        large: string | null
+    },
+    status: string | null,
     followed: boolean
-    fullName: string
-    status: string
-    location: LocationType
 }
-export type LocationType = {
+/*export type LocationType = {
     city: string
     country: string
-}
+}*/
 
 export type InitialStateType = {
     users: Array<UserType>
@@ -31,10 +34,39 @@ export type InitialStateType = {
 }
 const InitialState = {
     users: [
-        {id: 1, photoUrl:'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200', followed: true, fullName: 'Dmitry', status: 'Big Boss', location: {city: 'Minsk', country: 'Belarus'}},
-        {id: 2, photoUrl:'https://i0.wp.com/roohentertainment.com/wp-content/uploads/2018/06/user-avatar-1.png?ssl=1', followed: false, fullName: 'Kate', status: 'Admin', location: {city: 'Moscow', country: 'Russia'}},
-        {id: 3, photoUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU3RzSOxARHNXRfCNFBcna_XiBqxaobXmgAqUC71yGuD6hHi4k4oQ_DReOaKR67vhkNSw&usqp=CAU', followed: true, fullName: 'Jane', status: 'Manager', location: {city: 'Warshaw', country: 'Poland'}}
-    ]
+      /*  {
+            name: "Arch",
+            id: 25065,
+            uniqueUrlName: null,
+            photos: {
+                small: null,
+                large: null
+            },
+            status: null,
+            followed: false
+        },
+        {
+            name: "ArchersKing",
+            id: 25064,
+            uniqueUrlName: null,
+            photos: {
+                small: null,
+                large: null
+            },
+            status: null,
+            followed: false
+        },
+        {
+            name: "Norair",
+            id: 25063,
+            uniqueUrlName: null,
+            photos: {
+                small: null,
+                large: null
+            },
+            status: null,
+            followed: false
+        }*/]
 }
 
 

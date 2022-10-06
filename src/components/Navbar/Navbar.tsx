@@ -7,11 +7,14 @@ import {NavLink} from "react-router-dom";
 const Navbar = () => {
     return (
         <nav className={s.nav}>
-            <div>
+            <div className={s.item}>
                 <NavLink to="/profile"  >Profile</NavLink>
             </div>
-            <div>
+            <div className={s.item}>
                 <NavLink to="/dialogs">Messages</NavLink>
+            </div>
+            <div className={s.item}>
+                <NavLink to="/users">Users</NavLink>
             </div>
            {/* <div><NavLink to="">News</NavLink></div>
             <div><NavLink to="">Music</NavLink></div>
