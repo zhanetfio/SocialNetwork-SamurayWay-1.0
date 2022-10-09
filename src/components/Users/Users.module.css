@@ -5,3 +5,6 @@
     background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHn2z7r_YL3GXWi6BJzX5LwtfphQGkUpWWBA&usqp=CAU");
 
 }
+.selectedPage{
+    font-weight: bold;
+}
