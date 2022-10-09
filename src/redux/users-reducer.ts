@@ -18,7 +18,17 @@ export type SetUsersTotalCountAT = {
     type: 'SET-USERS-TOTAL-COUNT'
     count: number
 }
-export type ActionsType = FollowAT | UnFollowAT | SetUsersAT | SetUsersCurrentPageAT | SetUsersTotalCountAT
+export type ToggleIsFetchingAT = {
+    type: "TOGGLE-IS-FETCHING"
+    isFetching: boolean
+}
+export type ActionsType =
+    FollowAT
+    | UnFollowAT
+    | SetUsersAT
+    | SetUsersCurrentPageAT
+    | SetUsersTotalCountAT
+    | ToggleIsFetchingAT
 
 export type UserType = {
     name: string,
@@ -41,6 +51,7 @@ export type InitialStateType = {
     pageSize: number
     totalUserCount: number
     currentPage: number
+    isFetching: boolean
 
 }
 const InitialState = {
@@ -80,7 +91,9 @@ const InitialState = {
           }*/],
     pageSize: 5,
     totalUserCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: false
+
 }
 
 
@@ -109,7 +122,7 @@ export const usersReducer = (state: InitialStateType = InitialState, action: Act
             }
         }
         case 'SET-USERS': {
-            return {...state, users: [...state.users, ...action.users]}
+            return {...state, users: action.users}
         }
         case 'SET-USERS-CURRENT-PAGE':
             return {
@@ -119,8 +132,11 @@ export const usersReducer = (state: InitialStateType = InitialState, action: Act
         case 'SET-USERS-TOTAL-COUNT':
             return {
                 ...state,
-                currentPage: action.count
+                totalUserCount : action.count
             }
+        case 'TOGGLE-IS-FETCHING': {
+            return {...state, isFetching: action.isFetching}
+        }
         default:
             return state
     }
@@ -135,4 +151,8 @@ export const setUsersCurrentPageAC = (currentPage: number): SetUsersCurrentPageA
 export const setUsersTotalCountAC = (totalCount: number): SetUsersTotalCountAT => ({
     type: 'SET-USERS-TOTAL-COUNT',
     count: totalCount
+})
+export const toggleIsFetchingAC = (isFetching: boolean): ToggleIsFetchingAT => ({
+    type: "TOGGLE-IS-FETCHING",
+    isFetching: isFetching
 })
