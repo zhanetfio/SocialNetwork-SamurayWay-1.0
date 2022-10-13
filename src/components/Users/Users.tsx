@@ -3,6 +3,7 @@ import s from './Users.module.css'
 import {UserType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
 import axios from "axios";
+import {usersAPI} from "../../api/api";
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -49,12 +50,10 @@ export const Users = (props: UsersPropsType) => {
                                     })
                                 }}>Unfollow</button>
                                 : <button onClick={() => {
-                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
-                                        withCredentials: true,
-                                        headers: {
-                                            'API-KEY': 'e752a7cb-47a3-4c25-9f40-74c312d56809'
-                                        }
-                                    })
+                                  usersAPI.addUser(u.id )
+                                      .then((data)=>{
+                                        data.data
+                                      })
                                 }}>Follow</button>
                             }
                         </div>

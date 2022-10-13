@@ -10,8 +10,8 @@ import {
     unFollowAC,
     UserType
 } from "../../redux/users-reducer";
-import axios from "axios";
 import Preloader from "../common/Preloader/Preloader";
+import {usersAPI} from "../../api/api";
 
 type MapStateToPropsType = {
     users: Array<UserType>
@@ -35,23 +35,22 @@ class UsersContainer extends React.Component<UsersMapPropsType> {
 
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get("https://social-network.samuraijs.com/api/1.0/users")
-            .then(response => {
-                axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,{withCredentials:true})
-                    .then(response => {
-                        this.props.setUsers(response.data.items)
-                        this.props.setUsersTotalCount(response.data.totalCount)
+        // axios.get("https://social-network.samuraijs.com/api/1.0/users")
+        //     .then(response => {
+                usersAPI.getUsers(this.props.currentPage,this.props.pageSize)
+                    .then(data => {
+                        this.props.setUsers(data.items)
+                        this.props.setUsersTotalCount(data.totalCount)
                         this.props.toggleIsFetching(false)
                     })
 
-            })
-    }
+                }
 
     onPageChanged = (pageNumber: number) => {
         this.props.setUsersCurrentPage(pageNumber)
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {withCredentials:true}).then(response => {
-            this.props.setUsers(response.data.items)
+        usersAPI.getUsers(pageNumber,this.props.pageSize,).then(data => {
+            this.props.setUsers(data.items)
         })
     }
 
@@ -110,7 +109,3 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
 export const UserContainer = connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
 
 
-/*
-headers: {
-    'API-KEY': 'e752a7cb-47a3-4c25-9f40-74c312d56809'
-}*/

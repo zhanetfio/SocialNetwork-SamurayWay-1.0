@@ -55,40 +55,7 @@ export type InitialStateType = {
 
 }
 const InitialState = {
-    users: [
-        /*  {
-              name: "Arch",
-              id: 25065,
-              uniqueUrlName: null,
-              photos: {
-                  small: null,
-                  large: null
-              },
-              status: null,
-              followed: false
-          },
-          {
-              name: "ArchersKing",
-              id: 25064,
-              uniqueUrlName: null,
-              photos: {
-                  small: null,
-                  large: null
-              },
-              status: null,
-              followed: false
-          },
-          {
-              name: "Norair",
-              id: 25063,
-              uniqueUrlName: null,
-              photos: {
-                  small: null,
-                  large: null
-              },
-              status: null,
-              followed: false
-          }*/],
+    users: [],
     pageSize: 5,
     totalUserCount: 0,
     currentPage: 1,
@@ -132,7 +99,7 @@ export const usersReducer = (state: InitialStateType = InitialState, action: Act
         case 'SET-USERS-TOTAL-COUNT':
             return {
                 ...state,
-                totalUserCount : action.count
+                totalUserCount: action.count
             }
         case 'TOGGLE-IS-FETCHING': {
             return {...state, isFetching: action.isFetching}
