@@ -1,9 +1,19 @@
 .header {
-    grid-area: h ;
+    grid-area: h;
     background-color: black;
-    border: 2px solid black ;
-
+    border: 2px solid black;
+}
+.logoBlock{
+    display: inline-block;
     font-size: 32px;
-    text-align: left;
     color: gold;
+}
+
+.loginBlock {
+    font-size: 22px;
+    float: right;
+}
+
+.loginBlock a {
+    color: yellow;
 }

@@ -7,6 +7,7 @@ import {AppRootStateType} from "./redux/redux-store";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import {UserContainer} from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 export type AppType = {
     store: AppRootStateType
@@ -17,7 +18,7 @@ function App(props: AppType) {
 
     return (
         <div className="app-wrapper">
-            <Header/>
+            <HeaderContainer/>
             <Navbar/>
             <div className="app-wrapper-content">
                 <Routes>
