@@ -6,7 +6,7 @@ import {Dispatch} from "redux";
 import {
     followAC,
     setUsersAC,
-    setUsersCurrentPageAC, setUsersTotalCountAC, toggleIsFetchingAC,
+    setUsersCurrentPageAC, setUsersTotalCountAC, toggleIsFetchingAC, toggleIsFollowingProgressAC,
     unFollowAC,
     UserType
 } from "../../redux/users-reducer";
@@ -19,6 +19,7 @@ type MapStateToPropsType = {
     totalUserCount: number
     currentPage: number
     isFetching:boolean
+    followingInProgress:Array<number>
 }
 type MapDispatchToPropsType = {
     follow: (userId: number) => void
@@ -27,6 +28,7 @@ type MapDispatchToPropsType = {
     setUsersCurrentPage: (currentPage: number) => void
     setUsersTotalCount: (totalCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
+    toggleIsFollowingProgress:(followingInProgress:boolean,userId:number)=>void
 }
 export type UsersMapPropsType = MapStateToPropsType & MapDispatchToPropsType
 
@@ -67,6 +69,8 @@ class UsersContainer extends React.Component<UsersMapPropsType> {
                    users={this.props.users}
                    follow={this.props.follow}
                    unFollow={this.props.unFollow}
+                   toggleIsFollowingProgress={this.props.toggleIsFollowingProgress}
+                   followingInProgress={this.props.followingInProgress}
             />
             </>
         );
@@ -80,6 +84,7 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
         totalUserCount: state.users.totalUserCount,
         currentPage: state.users.currentPage,
         isFetching:state.users.isFetching,
+        followingInProgress: state.users.followingInProgress
     }
 }
 
@@ -102,6 +107,9 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
         },
         toggleIsFetching: (isFetching: boolean) =>{
             dispatch(toggleIsFetchingAC(isFetching))
+        },
+        toggleIsFollowingProgress:(followingInProgress:boolean,userId:number)=>{
+            dispatch(toggleIsFollowingProgressAC(followingInProgress,userId))
         }
     }
 }
