@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
+
 export type PostType = {
     id: number
     message: string
@@ -26,7 +29,7 @@ export type ProfileType = {
     lookingForAJobDescription: string | null,
     photos: {
         large: string | undefined,
-        small: string | undefined
+        small: string | undefined,
     },
     userId: number | null
 }
@@ -76,6 +79,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
 
         }
         case "SET-USER-PROFILE": {
+
             return {
                 ...state,
                 profile: action.profile
@@ -102,4 +106,7 @@ export const setUserProfile = (profile: ProfileType): SetUserProfileAT => {
         type: 'SET-USER-PROFILE',
         profile
     }
+}
+export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
+    usersAPI.getProfile(userId).then(res => dispatch(setUserProfile(res.data)))
 }

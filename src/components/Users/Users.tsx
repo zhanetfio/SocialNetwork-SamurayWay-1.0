@@ -45,31 +45,21 @@ export const Users = (props: UsersPropsType) => {
                             {u.followed
                                 ? <button disabled={props.followingInProgress.some(id => id === u.id)}
                                           onClick={() => {
-                                              props.toggleIsFollowingProgress(true, u.id)
-                                              axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
-                                                  withCredentials: true,
-                                                  headers: {
-                                                      'API-KEY': 'e752a7cb-47a3-4c25-9f40-74c312d56809'
-                                                  }
-                                              })
-                                              props.toggleIsFollowingProgress(false, u.id)
-                                          }}>Unfollow</button>
+                                              props.unFollow(u.id)
+                                          }}
+                                >Unfollow</button>
                                 : <button disabled={props.followingInProgress.some(id => id === u.id)}
                                           onClick={() => {
-                                              props.toggleIsFollowingProgress(true, u.id)
-                                              usersAPI.addUser(u.id)
-                                                  .then((data) => {
-                                                      data.data
-                                                  })
-                                              props.toggleIsFollowingProgress(false, u.id)
-                                          }}>Follow</button>
+                                              props.follow(u.id)
+                                          }}
+                                >Follow</button>
                             }
-                        </div>
-                    </span>
+                </div>
+                </span>
                     <span>
-                        <div>{u.name}</div>
-                        <div>{u.status}</div>
-                    </span>
+                <div>{u.name}</div>
+                <div>{u.status}</div>
+                </span>
                     {/*<span>
                         <div>{u.location.country}</div>
                         <div>{u.location.city}</div>

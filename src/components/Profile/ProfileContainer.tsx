@@ -1,44 +1,31 @@
 import React from 'react';
 import s from './Profile.module.css'
 import Profile from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
-import {PostType, ProfilePageType, ProfileType, setUserProfile} from "../../redux/profile-reducer";
-import {useParams} from 'react-router-dom';
+import {getUserProfile, PostType, ProfilePageType, ProfileType} from "../../redux/profile-reducer";
+import {AppRootStateType} from "../../redux/redux-store";
+import {withAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
-type MapStateToPropsType ={
-    postsData: Array<PostType>
-    newPostText: string
-    profile: ProfileType | null
+type MapStateToPropsType = {
+    profile: ProfilePageType
 }
 type MapDispatchToPropsType = {
     setUserProfile: (profile: ProfileType) => void
-
+    getUserProfile: (userId: string) => void
 }
 export type ProfileContainerPropsType = MapStateToPropsType & MapDispatchToPropsType & {
+
     params: {
         userId: string
     }
 }
-/*export type ProfileContainerPropsType = {
-    postsData: Array<PostType>
-    newPostText: string
-    profile: ProfileType | null
-    setUserProfile: (profile: ProfileType) => void
-}*/
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
     componentDidMount() {
         let userId = this.props?.params?.userId;
-
-        this.getProfile(userId ? userId : '2')
-    }
-    getProfile = (userId: string = '2') => {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-            .then(res => {
-                this.props.setUserProfile(res.data)
-            })
+        this.props.getUserProfile(userId ? userId : '2')
     }
 
     render() {
@@ -50,15 +37,22 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     }
 }
 
-const mapStateToProps = (state: ProfilePageType) => ({
-    postsData: state.postsData,
-    profile: state.profile,
-    newPostText: state.newPostText
-
-
-})
-function withParams(Component: React.ElementType) {
-    return (props: any) => <Component {...props} params={useParams()}/>;
+const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
+    return {
+        profile: state.profile,
+    }
 }
+    /* const AuthRedirectComponent = withAuthRedirect(ProfileContainer);
 
-export default (withParams(connect(mapStateToProps, {setUserProfile})(ProfileContainer)))
+     export function withParams(Component: React.ElementType) {
+         return (props: any) => <Component {...props} params={useParams()}/>;
+     }
+ */
+    /*
+        export default withAuthRedirect(withParams(connect(mapStateToProps, {getUserProfile})(AuthRedirectComponent)))
+    */
+    export default compose<React.ComponentType>(
+        connect(mapStateToProps, {getUserProfile}),
+        withParams,
+        withAuthRedirect
+    )(ProfileContainer);

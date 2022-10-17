@@ -1,13 +1,14 @@
 import React from 'react';
 import Header from "./Header";
 import axios from "axios";
-import {AuthStateType, setUserDataAC} from "../../redux/auth-reducer";
+import {AuthStateType, getAuthUserDataTC, setUserDataAC} from "../../redux/auth-reducer";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
+import {authAPI} from "../../api/api";
 
 
 type MapDispatchToPropsType = {
-    setUserDataAC: (id: number, email: string, login: string) => void
+    getAuthUserDataTC: ()=> void
 }
 type MapStateToPropsType = {
     id: number
@@ -20,23 +21,17 @@ export type HeaderContainerPropsType = MapStateToPropsType & MapDispatchToPropsT
 class HeaderContainer extends React.Component<HeaderContainerPropsType> {
 
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true})
-            .then(response => {
-            if (response.data.resultCode === 0) {
-                let{id,login,email}=response.data.data;
-                this.props.setUserDataAC(id, email,login)
-            }
 
-            })
+        this.props.getAuthUserDataTC()
 
     }
 
     render() {
         return (
-           <Header id={this.props.id} 
-                   email={this.props.email}
-                   login={this.props.login}
-                   isAuth={this.props.isAuth}/>
+            <Header id={this.props.id}
+                    email={this.props.email}
+                    login={this.props.login}
+                    isAuth={this.props.isAuth}/>
         );
     }
 }
@@ -51,12 +46,6 @@ const mapStateToProps = (state: AuthStateType): MapStateToPropsType => {
 
 }
 
-const mapDispatchToProps = (dispatch:Dispatch): MapDispatchToPropsType => {
-    return {
-        setUserDataAC: (id: number, email: string, login: string) =>{
-        dispatch(setUserDataAC(id,email,login))
-        }
-    }
-    }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer);
+
+export default connect(mapStateToProps, {getAuthUserDataTC})(HeaderContainer);
