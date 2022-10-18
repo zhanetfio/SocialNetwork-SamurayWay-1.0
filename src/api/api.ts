@@ -33,20 +33,29 @@ export const usersAPI = {
                     return res.data;
                 })
         )
-    },
-    getProfile(userId: string) {
-        return (
-            instance.get(`profile/${userId}`)
-                .then((res) => {
-                    return res.data;
-                })
-        )
-    },
+    }
 
 }
 
+export const profileAPI={
+    getProfile(userId: string) {
+        return (
+            instance.get(`profile/${userId}`)
+        )
+    },
+    getStatus(userId:number){
+        return(
+            instance.get(`profile/status/${userId}`)
+        )
+    },
+    updateStatus(status:string){
+        return (
+            instance.put(`profile/status`,{status})
+        )
+    }
+}
 export const authAPI = {
     me() {
-        return instance.get('auth/me')
+        return instance.get(`auth/me`)
     }
 }
