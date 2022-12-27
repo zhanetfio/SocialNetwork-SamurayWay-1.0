@@ -3,6 +3,7 @@ import {ProfileType} from "../../../redux/profile-reducer";
 import Preloader from "../../common/Preloader/Preloader";
 import s from "./ProfileInfo.module.css"
 import ProfileStatus from "./ProfileStatus";
+import {useAppSelector} from "../../common/hooks/hooks";
 
 type ProfileInfoPropsType = {
     profile: ProfileType | null
@@ -11,19 +12,16 @@ type ProfileInfoPropsType = {
 }
 
 const ProfileInfo = (props: ProfileInfoPropsType) => {
+   const avatar=useAppSelector(state=>state.profile.profile?.photos?.large)
+
     if (!props.profile) {
         return <Preloader/>
     } else {
         return (
             <div>
-                {/*  <div>
-                        <img
-                            src='https://physics.uconn.edu/wp-content/uploads/sites/2234/2018/10/cmz_3color_full_image-1200x400.jpg'
-                            alt='picture'/>
-                    </div>*/}
                 <div className={s.descriptionBlock}>
                     <img
-                        src={props.profile.photos.small} alt={'avatar'}/>
+                        src={avatar} alt={'avatar'}/>
                     <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
 
                 </div>

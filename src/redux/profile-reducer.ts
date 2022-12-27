@@ -1,10 +1,12 @@
 import {Dispatch} from "redux";
-import {profileAPI, usersAPI} from "../api/api";
+import {profileAPI } from "../api/api";
 
 export type PostType = {
     id: number
     message: string
     likesCount: number
+    photo:string
+    name:string
 }
 export type ProfilePageType = {
     postsData: Array<PostType>
@@ -14,8 +16,8 @@ export type ProfilePageType = {
 }
 
 export type ProfileType = {
-    aboutMe: string | null,
-    contacts: {
+    aboutMe?: string | null,
+    contacts?: {
         facebook: string | null
         github: string | null
         instagram: string | null
@@ -25,10 +27,10 @@ export type ProfileType = {
         website: string | null
         youtube: string | null
     },
-    fullName: string | null,
-    lookingForAJob: boolean | null,
-    lookingForAJobDescription: string | null,
-    photos: {
+    fullName?: string | null,
+    lookingForAJob?: boolean | null,
+    lookingForAJobDescription?: string | null,
+    photos?: {
         large: string | undefined,
         small: string | undefined,
     },
@@ -61,25 +63,27 @@ const initialState = {
         {id: 1, message: "It's my first post", likesCount: 7},
         {id: 1, message: "I like React!", likesCount: 10}
     ] as Array<PostType>,
-    newPostText: "Hello",
+    newPostText: "",
     profile: {} as ProfileType,
     status: ""
-}
+} as ProfilePageType
 export const profileReducer = (state: ProfilePageType = initialState, action: ProfileActionTypes): ProfilePageType => {
     switch (action.type) {
         case 'ADD-POST': {
             const newPost = {
                 id: 1,
                 message: state.newPostText,
-                likesCount: 0
+                likesCount: 0,
+                name:'',
+                photo:''
             };
-            const stateCopy = {
+           return {
                 ...state,
                 postsData: [...state.postsData,
                     newPost],
                 newPostText: ''
             }
-            return stateCopy
+
         }
         case 'UPDATE-NEW-POST-TEXT': {
             return {...state, newPostText: action.newText};

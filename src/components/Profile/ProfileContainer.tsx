@@ -49,16 +49,6 @@ const mapStateToProps = (state: AppRootStateType) => {
         status: state.profile.status,
     }
 }
-/* const AuthRedirectComponent = withAuthRedirect(ProfileContainer);
-
- export function withParams(Component: React.ElementType) {
-     return (props: any) => <Component {...props} params={useParams()}/>;
- }
-*/
-
-/*
-    export default withAuthRedirect(withParams(connect(mapStateToProps, {getUserProfile})(AuthRedirectComponent)))
-*/
 
 export function withParams(Component: React.ElementType) {
     return (props: any) => <Component {...props} params={useParams()}/>

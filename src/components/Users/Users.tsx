@@ -1,9 +1,7 @@
 import React from 'react';
 import s from './Users.module.css'
 import {UserType} from "../../redux/users-reducer";
-import {NavLink} from "react-router-dom";
-import axios from "axios";
-import {usersAPI} from "../../api/api";
+import {User} from "./User";
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -34,8 +32,13 @@ export const Users = (props: UsersPropsType) => {
                 })}
             </div>
             {
-                props.users.map(u => <div key={u.id}>
-                    <span>
+                props.users.map(u => <User key={u.id} user={u}
+                                           followingInProgress={props.followingInProgress}
+                                           follow={props.follow}
+                                           unfollow={props.unFollow}
+
+                />)
+                    /*<span>
                         <div className={s.imgLogo}>
                             <NavLink to={`/profile/${u.id}`}>
                             <img src={u.photos.small != null ? u.photos.small : s.photo} className={s.photo} alt={''}/>
@@ -60,15 +63,14 @@ export const Users = (props: UsersPropsType) => {
                 <div>{u.name}</div>
                 <div>{u.status}</div>
                 </span>
-                    {/*<span>
+                    {/!*<span>
                         <div>{u.location.country}</div>
                         <div>{u.location.city}</div>
-                    </span>*/}
-                </div>)
+                    </span>*!/}*/
+
             }
         </div>
     )
 }
 
 
-export default Users;

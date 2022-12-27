@@ -7,30 +7,38 @@ import {DialogsPropsType} from "./DialogsContainer";
 import {Navigate} from "react-router-dom";
 
 
-const Dialogs = (props: DialogsPropsType) => {
-const state= props.messagesPage
-    const dialogsElement =state.dialogData.map(dialog => <DialogItem key={dialog.id} name={dialog.name}
-                                                                      id={dialog.id}/>)
-    const messageElement =state.messageData.map(message => <Message key={message.id}
-                                                                     message={message.message}
-                                                                     id={message.id}/>)
+export const Dialogs = (props: DialogsPropsType) => {
+
+    const state = props.messagesPage
+
     const newMessageBody = state.newMessageBody;
 
     const sendMessageHandler = () => {
-      sendMessageAC()
+        sendMessageAC()
     }
     const ChangeNewMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        const body=e.target.value;
+        const body = e.target.value;
         props.ChangeNewMessageHandler(body)
     }
-    if (!props.isAuth) return <Navigate to={'/login'}/>
+    if (!props.isAuth) {
+        return <Navigate to={'/login'}/>
+    }
+
     return (
         <div className={s.dialogs}>
             <div>
-                {dialogsElement}
+                {state.dialogData.map(d =>
+                    <DialogItem key={d.id}
+                                name={d.name}
+                                id={d.id}
+                    />)}
             </div>
             <div>
-                <div>{messageElement}</div>
+                <div>{state.messageData.map(m =>
+                    <Message key={m.id}
+                             message={m.message}
+                             id={m.id}
+                    />)}</div>
                 <div>
                     <div><textarea
                         value={newMessageBody}
@@ -46,4 +54,3 @@ const state= props.messagesPage
     );
 };
 
-export default Dialogs;

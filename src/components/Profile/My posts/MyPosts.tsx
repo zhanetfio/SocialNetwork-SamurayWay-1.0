@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from 'react';
-import Post from "./Post/Post";
+import {Post} from "./Post/Post";
 import s from './MyPosts.module.css';
 import {MyPostsPropsType} from "./MyPostsContainer";
 
@@ -7,7 +7,7 @@ import {MyPostsPropsType} from "./MyPostsContainer";
 
 const MyPosts = (props:MyPostsPropsType) => {
 
-    const postsElements=props.postsData.map(post=><Post  key={post.id} message={post.message} likesCount={post.likesCount}/>)
+
 
     const newPostElement=React.createRef<HTMLTextAreaElement>();
 
@@ -36,7 +36,15 @@ const MyPosts = (props:MyPostsPropsType) => {
                     <button onClick={onAddPost}>Add post</button>
                 </div>
             </div>
-            {postsElements}
+            {props.postsData.map(p=><Post
+                key={p.id}
+                message={p.message}
+                likesCount={p.likesCount}
+                id={p.id}
+                photo={p.photo}
+                name={p.name}
+
+            />)}
 
         </div>
 

@@ -29,10 +29,18 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType> {
         })
         this.props.updateStatus(this.state.status)
     }
-    onStatusChange=(e:ChangeEvent<HTMLInputElement>)=>{
+    onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState({
-            status:e.currentTarget.value
+            status: e.currentTarget.value
         })
+    }
+
+    componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({
+                status: this.props.status
+            })
+        }
     }
 
     render() {

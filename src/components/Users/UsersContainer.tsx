@@ -1,8 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
-import Users from "./Users";
-import {AppRootStateType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
+import {Users} from "./Users";
+import { AppRootStateType} from "../../redux/redux-store";
 import {
     follow,
      getUsersTC,
@@ -24,12 +23,9 @@ type MapStateToPropsType = {
 type MapDispatchToPropsType = {
     follow: (userId: number) => void
     unFollow: (userId: number) => void
-    //setUsers: (users: Array<UserType>) => void
     setUsersCurrentPage: (currentPage: number) => void
-   // setUsersTotalCount: (totalCount: number) => void
-    //toggleIsFetching: (isFetching: boolean) => void
     toggleIsFollowingProgress:(followingInProgress:boolean,userId:number)=>void
-    getUsersTC: (currentPage: number, pageSize: number)=>(dispatch:Dispatch)=> void
+    getUsersTC: (currentPage: number, pageSize: number)=> void
 
 }
 export type UsersMapPropsType = MapStateToPropsType & MapDispatchToPropsType
@@ -79,31 +75,11 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
 
 const mapDispatchToProps = (): MapDispatchToPropsType => {
     return {
-        follow/*: (userId: number) => {
-            dispatch(followSuccessAC(userId))
-        }*/,
-        unFollow/*: (userId: number) => {
-            dispatch(unFollowSuccessAC(userId))
-        }*/,
-        /*setUsersACs: (users: Array<UserType>) => {
-            dispatch(setUsersAC(users))
-        },*/
-        setUsersCurrentPage/*: (currentPage: number) => {
-            dispatch(setUsersCurrentPageAC(currentPage))
-        }*/,
-      /*  setUsersTotalCountAC*//*: (totalCount: number) => {
-            dispatch(setUsersTotalCountAC(totalCount))
-        }*/
-      /*  toggleIsFetchingAC/!*: (isFetching: boolean) =>{
-            dispatch(toggleIsFetchingAC(isFetching))
-        }*!/,*/
-        toggleIsFollowingProgress/*:(followingInProgress:boolean,userId:number)=>{
-            dispatch(toggleIsFollowingProgressAC(followingInProgress,userId))
-        }*/,
-        getUsersTC/*:(currentPage:number,pageSize:number)=> {
-            dispatch(getUsersTC(currentPage,pageSize)(dispatch))
-        }*/
-
+        follow,
+        unFollow,
+        setUsersCurrentPage,
+        toggleIsFollowingProgress,
+        getUsersTC
     }
 }
 
